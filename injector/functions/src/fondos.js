@@ -1,29 +1,62 @@
-const { cuotaParte } = require('./cafci/api')
+const { cuotaParte, ficha } = require('./cafci/api')
 
-const fondosList = [
-  { name: 'Mercado-Fondo-A', fondo: 798, clase: 1982 }, // Mercado Fondo clase A
-  { name: 'Mercado-Fondo-B', fondo: 798, clase: 1983 }, // Mercado Fondo clase B
-  { name: 'Mercado-Fondo-C', fondo: 798, clase: 1984 }, // Mercado Fondo clase C
-]
-
+/*
+* Injects value for every fondo in specified date
+*/
 function injectFondos(db, date) {
-  const updates = fondosList.map(f => {
+  return db.collection('datasets').where('type', '==', 'fondo').get()
+  .then(snapshot => {
+    const datasets = []
+    snapshot.forEach(doc => {
+      datasets.push({ ...doc.data(), id: doc.id })
+    })
 
-    const key = `${f.name}-${date}`
+    const updates = datasets.map(dataset => {
+      return injectFondoForDates(db, dataset.metadata.fondo, dataset.metadata.clase, [date])
+    })
 
-    return cuotaParte(f.fondo, f.clase, date)
-    .then(cp => ({
-      type: 'fondo',
-      name: f.name,
-      date: date,
-      value: cp
-    }))
-    .then(datapoint => db.collection('datapoints').doc(key).set(datapoint))
+    return Promise.all(updates)
   })
+}
 
-  return Promise.all(updates)
+/*
+* Injects value for every date in specified fondo
+*/
+function injectFondoForDates(db, fondo, clase, dates) {
+  return ficha(fondo, clase)
+  .then(f => {
+    const name = f.data.model.nombre
+
+    const id = `fondo-${fondo}-${clase}`
+    const dataset = {
+      type: 'fondo',
+      name,
+      metadata: {
+        fondo,
+        clase
+      }
+    }
+    return db.collection('datasets').doc(id).set(dataset).then(() => ({ datasetId: id, name }))
+  })
+  .then(({ datasetId, name }) => {
+    const updates = dates.map(date => {
+      console.log(`injecting for fondo ${fondo}-${clase} at ${date}`);
+      const id = `fondo-${fondo}-${clase}-${date}`
+      return cuotaParte(fondo, clase, date)
+      .then(cp => ({
+        datasetId,
+        type: 'fondo',
+        date,
+        value: cp
+      }))
+      .then(datapoint => db.collection('datapoints').doc(id).set(datapoint))
+    })
+
+    return Promise.all(updates)
+  })
 }
 
 module.exports = {
-  injectFondos
+  injectFondos,
+  injectFondoForDates
 }
