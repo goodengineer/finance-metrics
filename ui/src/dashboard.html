@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css">
+    <link rel="stylesheet" href="css/master.css">
+    <title>Finance Metrics</title>
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="block">
+        <h1 class="title">Mercado Pago vs Dolar</h1>
+      </div>
+
+      <div class="block">
+        <div class="columns">
+          <div class="column is-two-thirds">
+            <!-- Chart -->
+            <div class="subtitle">Dashboard</div>
+            <canvas id="chart"></canvas>
+          </div>
+          <div class="column">
+            <!-- Dashboard Definition -->
+            <div class="subtitle">Datasets</div>
+            <div id='dataset-list' class="list is-hoverable">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block plus-container">
+        <div id='add-dataset-btn' class="button is-large">
+          <i class="fa fa-plus"></i>
+        </div>
+      </div>
+
+      <div class="block">
+        <div id='dataset-search-modal' class="modal">
+          <div class="modal-background"></div>
+          <div class="modal-content" style="height: 100%; min-width: 75%;">
+
+            <div class="box">
+              <nav class="panel">
+                <p class="panel-heading">
+                  datasets
+                </p>
+                <div class="panel-block">
+                  <p class="control has-icons-left">
+                    <input class="input is-small" type="text" placeholder="search">
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </span>
+                  </p>
+                </div>
+                <p class="panel-block">
+                  <table class="table is-striped is-fullwidth is-hoverable is-clickable">
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Type</th>
+                        <th class="is-hidden-mobile">Description</th>
+                        <th class="is-hidden-mobile">Source</th>
+                      </tr>
+                    </thead>
+                    <tbody id='dataset-search-table'>
+                    </tbody>
+                  </table>
+                </p>
+              </nav>
+            </div>
+
+          </div>
+          <button id="close-modal-btn" class="modal-close is-large" aria-label='close'></button>
+        </div>
+
+      </div>
+
+    </div> <!-- end container -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script type="text/javascript" src="js/views/dashboard/chartManager.js"></script>
+    <script type="text/javascript" src="js/views/dashboard/ui.js"></script>
+    <script type="text/javascript" src="js/views/dashboard/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+/* GENERIC */
+
+.is-clickable {
+  cursor: pointer;
+}
+
+.is-hoverable-btn:hover {
+  background: rgba(107, 107, 107, 0.5);
+}
+
+.is-circle-rounded {
+  border-radius: 50%;
+}
+
+.is-animated-fast {
+  transition: all 0.2s ease;
+}
+
+/* SPECIFIC */
+
+.block.plus-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 24px;
+}
+
+.block.plus-container .button {
+  border-radius: 50%;
+}

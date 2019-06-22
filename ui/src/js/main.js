@@ -3,15 +3,15 @@ const App = (function() {
   function start() {
     console.log('application is running');
 
-    FirebaseInit.initialize()
+    // FirebaseInit.initialize()
 
-    const db = firebase.firestore()
+    // const db = firebase.firestore()
 
-    db.collection('datapoints').get()
-    .then(handleSnapshot)
-    .then(data => data.map(x => x.data))
-    .then(datapoints => datapoints.map(handleDatapoint))
-    .then(console.log)
+    // db.collection('datapoints').get()
+    // .then(handleSnapshot)
+    // .then(data => data.map(x => x.data))
+    // .then(datapoints => datapoints.map(handleDatapoint))
+    // .then(console.log)
   }
 
   function handleDatapoint(datapoint) {
