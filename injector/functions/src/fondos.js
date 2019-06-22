@@ -40,7 +40,7 @@ function injectFondoForDates(db, fondo, clase, dates) {
     return db.collection('datasets').doc(id).set(dataset).then(() => ({ datasetId: id, name }))
   })
   .then(({ datasetId, name }) => {
-    const updates = dates.map(date => {
+    const updates = dates.map(date => () => {
       console.log(`injecting for fondo ${fondo}-${clase} at ${date}`)
       const id = `fondo-${fondo}-${clase}-${date}`
       return cuotaParte(fondo, clase, date)
@@ -50,9 +50,12 @@ function injectFondoForDates(db, fondo, clase, dates) {
         value: cp
       }))
       .then(datapoint => db.collection('datapoints').doc(id).set(datapoint))
+      .catch(e => {
+        console.error(`failed to inject fondo ${fondo}-${clase} at ${date}`);
+      })
     })
 
-    return Promise.all(updates)
+    return updates.reduce((p, f) => p.then(f), Promise.resolve())
   })
 }
 

@@ -36,6 +36,9 @@ function injectCurrencyForDates(db, currency, dates) {
         value
       }))
       .then(datapoint => db.collection('datapoints').doc(datapointId).set(datapoint))
+      .catch(e => {
+        console.error(`failed to inject currency ${currency} at ${date}`);
+      })
     })
 
     return Promise.all(updates)
