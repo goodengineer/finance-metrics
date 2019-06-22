@@ -1,4 +1,4 @@
-const axios = require('axios');
+const axios = require('axios')
 const moment = require('moment')
 
 const BASE_URL = 'https://api.cafci.org.ar'

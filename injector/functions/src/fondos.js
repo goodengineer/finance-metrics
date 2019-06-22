@@ -31,6 +31,7 @@ function injectFondoForDates(db, fondo, clase, dates) {
     const dataset = {
       type: 'fondo',
       name,
+      source: 'https://www.cafci.org.ar',
       metadata: {
         fondo,
         clase
@@ -40,12 +41,11 @@ function injectFondoForDates(db, fondo, clase, dates) {
   })
   .then(({ datasetId, name }) => {
     const updates = dates.map(date => {
-      console.log(`injecting for fondo ${fondo}-${clase} at ${date}`);
+      console.log(`injecting for fondo ${fondo}-${clase} at ${date}`)
       const id = `fondo-${fondo}-${clase}-${date}`
       return cuotaParte(fondo, clase, date)
       .then(cp => ({
         datasetId,
-        type: 'fondo',
         date,
         value: cp
       }))

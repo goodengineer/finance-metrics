@@ -1,27 +1,25 @@
 const moment = require('moment')
-const { injectFondoForDates } = require('./fondos')
+const { injectCurrencyForDates } = require('./currencies')
 
 const args = process.argv.slice(2)
 
-if (args.length !== 3) {
-  throw Error('script requires exactly 3 paramenters: fondo, clase & desde')
+if (args.length !== 2) {
+  throw Error('script requires exactly 2 paramenters: currency & desde')
 }
 
-const fondo = args[0]
-const clase = args[1]
-const desdeString = args[2]
+const supportedCurrencies = ['USD', 'EUR']
 
-if (isNaN(fondo)) {
-  throw Error(`fondo must be a number`)
-}
+const currency = args[0]
+const desdeString = args[1]
 
-if (isNaN(clase)) {
-  throw Error(`clase must be a number`)
+if (!supportedCurrencies.includes(currency)) {
+  throw Error(`currency not supported: ${currency}. Please use ${supportedCurrencies.toString()}`)
 }
 
 if (!moment(desdeString, 'YYYY-MM-DD', true).isValid()) {
   throw Error(`invalid date does not comply with format YYYY-MM-DD: ${desdeString}`)
 }
+
 const desde = moment(desdeString, 'YYYY-MM-DD')
 const today = moment().startOf('day')
 
@@ -41,7 +39,7 @@ while(desde.clone().add(i, 'days') < today) {
   i++
 }
 
-injectFondoForDates(db, fondo, clase, dates)
+injectCurrencyForDates(db, currency, dates)
 .then(() => {
-  console.log(`finished injecting history for fondo ${fondo}-${clase} since ${desdeString}`);
+  console.log(`finished injecting history for currency ${currency} since ${desdeString}`);
 })
