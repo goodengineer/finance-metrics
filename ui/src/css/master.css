@@ -1,11 +1,11 @@
 /* GENERIC */
 
-.is-clickable {
-  cursor: pointer;
-}
-
 .is-hoverable-btn:hover {
   background: rgba(107, 107, 107, 0.5);
+}
+
+.is-clickable {
+  cursor: pointer;
 }
 
 .is-circle-rounded {

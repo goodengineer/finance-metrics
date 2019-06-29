@@ -1,7 +1,54 @@
-const ChartManager = (function() {
+const ChartManager = function(name, canvas) {
 
-  let chart
-  let cfg
+  const cfg = {
+    type: 'bar',
+    data: {
+      datasets: []
+    },
+    options: {
+      scales: {
+        xAxes: [{
+          type: 'time',
+          distribution: 'series',
+          time: {
+            unit: 'day'
+          },
+          ticks: {
+            source: 'data',
+            autoSkip: true
+          }
+        }],
+        yAxes: [{
+          ticks: {
+            display: true,
+            // beginAtZero: true,
+            // suggestedMax: 200
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Value'
+          }
+        }]
+      },
+      tooltips: {
+        intersect: false,
+        mode: 'index',
+        callbacks: {
+          label: function(tooltipItem, myData) {
+            var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+            if (label) {
+              label += ': ';
+            }
+            label += parseFloat(tooltipItem.value).toFixed(2);
+            return label;
+          }
+        }
+      }
+    }
+  }
+
+  const ctx = canvas.getContext('2d')
+  window[name] = new Chart(ctx, cfg)
 
   const CHART_COLORS = {
     red: 'rgb(255, 99, 132)',
@@ -20,73 +67,6 @@ const ChartManager = (function() {
     fill: false,
     lineTension: 0,
     borderWidth: 2
-  }
-
-  function initialize({ canvas }) {
-
-    // const baseDataset = {
-    //   label: 'CHRT - Chart.js Corporation',
-    //   backgroundColor: 'rgba(255,99,132,0.5)',
-    //   borderColor: 'rgb(255,99,132)',
-    //   data: data,
-    //   type: 'line',
-    //   pointRadius: 0,
-    //   fill: false,
-    //   lineTension: 0,
-    //   borderWidth: 2
-    // }
-
-    console.log('initializing ChartManager')
-
-    cfg = {
-      type: 'bar',
-      data: {
-        datasets: []
-      },
-      options: {
-        scales: {
-          xAxes: [{
-            type: 'time',
-            distribution: 'series',
-            time: {
-              unit: 'day'
-            },
-            ticks: {
-              source: 'data',
-              autoSkip: true
-            }
-          }],
-          yAxes: [{
-            ticks: {
-              display: true,
-              // beginAtZero: true,
-              // suggestedMax: 200
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Value'
-            }
-          }]
-        },
-        tooltips: {
-					intersect: false,
-					mode: 'index',
-					callbacks: {
-						label: function(tooltipItem, myData) {
-							var label = myData.datasets[tooltipItem.datasetIndex].label || '';
-							if (label) {
-								label += ': ';
-							}
-							label += parseFloat(tooltipItem.value).toFixed(2);
-							return label;
-						}
-					}
-				}
-      }
-    }
-
-    const ctx = canvas.getContext('2d')
-    chart = new Chart(ctx, cfg)
   }
 
   function updateChart([...datasets]) {
@@ -111,12 +91,11 @@ const ChartManager = (function() {
     cfg.options.scales.yAxes[0].ticks.suggestedMin = min - margin
     cfg.options.scales.yAxes[0].ticks.suggestedMax = max + margin
 
-    chart.update()
+    window[name].update()
   }
 
   return {
-    initialize,
     updateChart,
     CHART_COLORS
   }
-})()
+}

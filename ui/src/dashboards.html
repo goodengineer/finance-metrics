@@ -18,34 +18,22 @@
 
       <div class="block">
 
-        <table class="table is-striped is-fullwidth is-hoverable">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Mercado Pago vs Dolar</td>
-              <td>Difference between monthly returnings of MP and USD</td>
-            </tr>
-
-            <tr>
-              <td>Mercado Pago vs Dolar</td>
-              <td>Difference between monthly returnings of MP and USD</td>
-            </tr>
-
-            <tr class="is-selected">
-              <td>Mercado Pago vs Dolar</td>
-              <td>Difference between monthly returnings of MP and USD</td>
-            </tr>
-          </tbody>
+        <table id='dashboards-table' class="table is-striped is-fullwidth is-hoverable">
         </table>
       </div>
 
     </div> <!-- end container -->
 
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/6.1.1/firebase-firestore.js"></script>
+
+    <!-- General scripts -->
+    <script type="text/javascript" src="js/firebase-helper.js"></script>
+    <script type="text/javascript" src="js/firebase-api.js"></script>
+
+    <!-- View specific scripts -->
+    <script type="text/javascript" src="js/views/dashboards/ui.js"></script>
     <script type="text/javascript" src="js/views/dashboards/index.js"></script>
   </body>
 </html>
