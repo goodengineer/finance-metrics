@@ -30,21 +30,25 @@ const ChartManager = function(name, canvas) {
             labelString: 'Value'
           }
         }]
-      },
-      // tooltips: {
-      //   intersect: false,
-      //   mode: 'index',
-      //   callbacks: {
-      //     label: function(tooltipItem, myData) {
-      //       var label = myData.datasets[tooltipItem.datasetIndex].label || '';
-      //       if (label) {
-      //         label += ': ';
-      //       }
-      //       label += parseFloat(tooltipItem.value).toFixed(2);
-      //       return label;
-      //     }
-      //   }
-      // }
+      }
+    }
+  }
+
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+  if (!isMobile) {
+    cfg.options.tooltips = {
+      intersect: false,
+      mode: 'index',
+      callbacks: {
+        label: function(tooltipItem, myData) {
+          var label = myData.datasets[tooltipItem.datasetIndex].label || '';
+          if (label) {
+            label += ': ';
+          }
+          label += parseFloat(tooltipItem.value).toFixed(2);
+          return label;
+        }
+      }
     }
   }
 

@@ -45,4 +45,34 @@ const usdVsMfDashboard = {
   ]
 }
 
-db.collection('dashboards').add(usdVsMfDashboard)
+const usdVsEur = {
+  name: 'USD vs EUR',
+  description: 'USD currency compared to EUR currency',
+  charts: [
+    {
+      type: 'CR',
+      datasets: ['currency-USD', 'currency-EUR'],
+      colors: [
+        { backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgb(75, 192, 192)' },
+        { backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: 'rgb(255, 159, 64)' },
+        { backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgb(0, 0, 0)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['currency-USD'],
+      colors: [
+        { backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgb(75, 192, 192)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['currency-EUR'],
+      colors: [
+        { backgroundColor: 'rgba(255, 159, 64, 0.5)', borderColor: 'rgb(255, 159, 64)' }
+      ]
+    }
+  ]
+}
+
+db.collection('dashboards').add(usdVsEur)
