@@ -1,4 +1,5 @@
 const { cuotaParte, ficha } = require('./cafci/api')
+const moment = require('moment')
 
 /*
 * Injects value for every fondo in specified date
@@ -46,7 +47,7 @@ function injectFondoForDates(db, fondo, clase, dates) {
       return cuotaParte(fondo, clase, date)
       .then(cp => ({
         datasetId,
-        date,
+        date: moment(date, 'YYYY-MM-DD').valueOf(),
         value: cp
       }))
       .then(datapoint => db.collection('datapoints').doc(id).set(datapoint))

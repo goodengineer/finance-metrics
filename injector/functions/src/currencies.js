@@ -1,4 +1,5 @@
 const { rate } = require('./fixer/api')
+const moment = require('moment')
 
 function injectCurrencies(db, date) {
   return db.collection('datasets').where('type', '==', 'currency').get()
@@ -32,7 +33,7 @@ function injectCurrencyForDates(db, currency, dates) {
       .then(value => ({
         datasetId,
         type: 'currency',
-        date,
+        date: moment(date, 'YYYY-MM-DD').valueOf(),
         value
       }))
       .then(datapoint => db.collection('datapoints').doc(datapointId).set(datapoint))
