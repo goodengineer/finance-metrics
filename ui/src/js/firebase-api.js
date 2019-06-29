@@ -19,8 +19,11 @@ const FirebaseApi = function(db) {
     .then(FirebaseHelper.handleDoc)
   )
 
-  const getDatapoints = datasetId => (
-    db.collection('datapoints').where('datasetId', '==', datasetId).get()
+  const getDatapoints = (datasetId, since) => (
+    db.collection('datapoints')
+    .where('datasetId', '==', datasetId)
+    .where('date', '>=', since)
+    .get()
     .then(FirebaseHelper.handleSnapshot)
   )
 

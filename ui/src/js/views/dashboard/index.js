@@ -32,7 +32,8 @@ const Index = (function() {
     const color = chart.colors[0]
     const datasetId = chart.datasets[0]
     const dataset = await api.getDataset(datasetId)
-    const datapoints = await api.getDatapoints(datasetId)
+    const since = moment().subtract(30, 'days').valueOf()
+    const datapoints = await api.getDatapoints(datasetId, since)
     const data = datapoints.map(({ date, value }) => ({ t: date, y: value }))
 
     return [{ ...color, label: dataset.name, data }]
