@@ -75,4 +75,34 @@ const usdVsEur = {
   ]
 }
 
-db.collection('dashboards').add(usdVsEur)
+const mixVsMfDashboard = {
+  name: 'Santander Mix vs Mercado Fondo',
+  description: 'Supergestion Mix VI - Clase A compared to Mercado Fondo - Clase A',
+  charts: [
+    {
+      type: 'CR',
+      datasets: ['fondo-406-730', 'fondo-798-1982'],
+      colors: [
+        { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' },
+        { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' },
+        { backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgb(0, 0, 0)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['fondo-406-730'],
+      colors: [
+        { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['fondo-798-1982'],
+      colors: [
+        { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' }
+      ]
+    }
+  ]
+}
+
+db.collection('dashboards').add(mixVsMfDashboard)
