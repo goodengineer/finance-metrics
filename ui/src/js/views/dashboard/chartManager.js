@@ -6,6 +6,7 @@ const ChartManager = function(name, canvas) {
       datasets: []
     },
     options: {
+      maintainAspectRatio: false,
       scales: {
         xAxes: [{
           type: 'time',

@@ -28,3 +28,7 @@
 .block.plus-container .button {
   border-radius: 50%;
 }
+
+div.column canvas {
+  height: 50vh;
+}
