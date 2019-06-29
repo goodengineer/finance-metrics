@@ -18,14 +18,48 @@ const Index = (function() {
 
   function getChart(api, chart) {
     switch(chart.type) {
-      case 'CR': return getChartTypeS(api, chart) // TODO: change to getChartTypeCR when implemented
+      case 'CR': return getChartTypeCR(api, chart)
       case 'S': return getChartTypeS(api, chart)
     }
     throw Error(`can't handle chart of type: ${chart.type}`)
   }
 
-  function getChartTypeCR(api, chart) {
-    // TODO: implement
+  // TODO: refactor to tidy up
+  async function getChartTypeCR(api, chart) {
+    const firstDataset = await api.getDataset(chart.datasets[0])
+    const secondDataset = await api.getDataset(chart.datasets[1])
+    const since = moment().subtract(60, 'days').valueOf()
+
+    const firstDatapoints = await api.getDatapoints(chart.datasets[0], since)
+    const secondDatapoints = await api.getDatapoints(chart.datasets[1], since)
+
+    const delta = 30
+
+    const firstData = firstDatapoints
+    .map(({ date, value }, i) => {
+      if (i <= delta) return undefined
+      const y = ((value / firstDatapoints[i - delta].value) - 1) * 100
+      return { t: date, y }
+    })
+    .filter(x => x)
+
+    const secondData = secondDatapoints
+    .map(({ date, value }, i) => {
+      if (i <= delta) return undefined
+      const y = ((value / secondDatapoints[i - delta].value) - 1) * 100
+      return { t: date, y }
+    })
+    .filter(x => x)
+
+    const thirdData = firstData.map((fd, i) => ({ t: fd.t,  y: fd.y - secondData[i].y}))
+
+    console.log(firstData.length);
+
+    return [
+      { ...chart.colors[0], label: firstDataset.name, data: firstData },
+      { ...chart.colors[1], label: secondDataset.name, data: secondData },
+      { ...chart.colors[2], label: 'Difference', data: thirdData }
+    ]
   }
 
   async function getChartTypeS(api, chart) {
