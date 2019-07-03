@@ -105,4 +105,34 @@ const mixVsMfDashboard = {
   ]
 }
 
-db.collection('dashboards').add(mixVsMfDashboard)
+const superAhorroVsMixDashboard = {
+  name: 'Super Ahorro PLUS vs Santander Mix',
+  description: 'Super Ahorro PLUS A - Clase A compared to Supergestion Mix VI - Clase A',
+  charts: [
+    {
+      type: 'CR',
+      datasets: ['fondo-519-1048', 'fondo-406-730'],
+      colors: [
+        { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' },
+        { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' },
+        { backgroundColor: 'rgba(0, 0, 0, 0.5)', borderColor: 'rgb(0, 0, 0)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['fondo-519-1048'],
+      colors: [
+        { backgroundColor: 'rgba(153, 102, 255, 0.5)', borderColor: 'rgb(153, 102, 255)' }
+      ]
+    },
+    {
+      type: 'S',
+      datasets: ['fondo-406-730'],
+      colors: [
+        { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' }
+      ]
+    }
+  ]
+}
+
+db.collection('dashboards').add(superAhorroVsMixDashboard)
