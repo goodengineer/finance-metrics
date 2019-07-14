@@ -6,13 +6,13 @@ const FirebaseHelper = (function() {
       return
     }
     const firebaseConfig = {
-      apiKey: "AIzaSyBixHqFp06bXD-gWu2D8L-46T2cNVvtqYY",
-      authDomain: "metrics-6affa.firebaseapp.com",
-      databaseURL: "https://metrics-6affa.firebaseio.com",
-      projectId: "metrics-6affa",
-      storageBucket: "metrics-6affa.appspot.com",
-      messagingSenderId: "80746674498",
-      appId: "1:80746674498:web:7248ed4f2160adcf"
+      apiKey: "AIzaSyCBu0C3g5Ci9eC8TcOWb2x2tEUsmyzIvtI",
+      authDomain: "finance-eye.firebaseapp.com",
+      databaseURL: "https://finance-eye.firebaseio.com",
+      projectId: "finance-eye",
+      storageBucket: "finance-eye.appspot.com",
+      messagingSenderId: "643926896295",
+      appId: "1:643926896295:web:b8084e72abec1f5a"
     }
     firebase.initializeApp(firebaseConfig)
 

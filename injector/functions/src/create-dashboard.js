@@ -135,4 +135,4 @@ const superAhorroVsMixDashboard = {
   ]
 }
 
-db.collection('dashboards').add(superAhorroVsMixDashboard)
+db.collection('dashboards').add(mixVsMfDashboard)
