@@ -23,6 +23,11 @@ const FirebaseApi = function(db) {
     .then(FirebaseHelper.handleDoc)
   )
 
+  const getDatasets = () => (
+    db.collection('datasets').get()
+    .then(FirebaseHelper.handleSnapshot)
+  )
+
   const getDatapoints = (datasetId, since) => {
     if (!cache.datapoints[datasetId]) {
       console.log(`calculating ${datasetId} for the first time`);
@@ -37,10 +42,17 @@ const FirebaseApi = function(db) {
     .then(datapoints => datapoints.filter(dp => dp.date >= since))
   }
 
+  const getDatapoint = id => {
+    return db.collection('datapoints').doc(id).get()
+    .then(FirebaseHelper.handleDoc)
+  }
+
   return {
     getDashboards,
     getDashboard,
     getDataset,
-    getDatapoints
+    getDatasets,
+    getDatapoints,
+    getDatapoint
   }
 }

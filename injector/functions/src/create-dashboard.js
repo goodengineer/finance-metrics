@@ -15,13 +15,13 @@ const handleSnapshot = snapshot => {
   return docs
 }
 
-const usdVsMfDashboard = {
-  name: 'USD vs Mercado Fondo',
-  description: 'USD currency compared to Mercado Fondo - Clase A',
+const mixVsUsd = {
+  name: 'Santander Mix vs USD',
+  description: 'Supergestion Mix VI - Clase A compared to USD currency',
   charts: [
     {
       type: 'CR',
-      datasets: ['fondo-798-1982', 'currency-USD'],
+      datasets: ['fondo-406-730', 'currency-USD'],
       colors: [
         { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' },
         { backgroundColor: 'rgba(75, 192, 192, 0.5)', borderColor: 'rgb(75, 192, 192)' },
@@ -30,7 +30,7 @@ const usdVsMfDashboard = {
     },
     {
       type: 'S',
-      datasets: ['fondo-798-1982'],
+      datasets: ['fondo-406-730'],
       colors: [
         { backgroundColor: 'rgba(54, 162, 235, 0.5)', borderColor: 'rgb(54, 162, 235)' }
       ]
@@ -135,4 +135,4 @@ const superAhorroVsMixDashboard = {
   ]
 }
 
-db.collection('dashboards').add(mixVsMfDashboard)
+db.collection('dashboards').add(mixVsUsd)
