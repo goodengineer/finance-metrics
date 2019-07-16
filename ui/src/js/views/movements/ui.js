@@ -28,8 +28,8 @@ const UI = (function() {
     <tr>
       <td>${props.date}</th>
       <td class='${props.delta >= 0 ? 'has-text-success' : 'has-text-danger'}'>${props.delta >= 0 ? '+' : '-'}${prettyNumber(props.delta)}</th>
-      <td>${prettyNumber(props.balance)}</th>
-      <td class='is-hidden-mobile'>${props.value.toFixed(2)}</th>
+      <td>${prettyNumber(Math.round(props.balance))}</th>
+      <td class='is-hidden-mobile'>${prettyNumber(Math.floor(props.value))},${props.value.toFixed(2).split('.')[1]}</th>
     </tr>
   `)
 

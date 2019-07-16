@@ -95,7 +95,7 @@ const Index = (function() {
         data.push({
           date: movements[i].date,
           delta: movements[i].value,
-          balance: Math.round(data[i - 1].balance * ((all[i].datapoint.value)/(all[i - 1].datapoint.value)) + movements[i].value),
+          balance: data[i - 1].balance * ((all[i].datapoint.value)/(all[i - 1].datapoint.value)) + movements[i].value,
           value: all[i].datapoint.value
         })
       }
@@ -105,9 +105,11 @@ const Index = (function() {
       data.push({
         date: yesterday,
         delta: 0,
-        balance: Math.round(data[data.length - 1].balance * ((yesterdayDatapoint.value)/(all[all.length - 1].datapoint.value))),
+        balance: data[data.length - 1].balance * ((yesterdayDatapoint.value)/(all[all.length - 1].datapoint.value)),
         value: yesterdayDatapoint.value
       })
+
+      console.log(data);
 
       bindings.tableBody.innerHTML = data.map(TableRow).join('\n')
       bindings.calculateButton.classList.remove('is-loading')
